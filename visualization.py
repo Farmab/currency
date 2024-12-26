@@ -39,6 +39,13 @@ def display_conversion_section(exchange_rates):
     source_currency = st.selectbox("From:", list(exchange_rates.keys()))
     target_currency = st.selectbox("To:", list(exchange_rates.keys()))
 
+    # Display the latest exchange rate between the selected currencies
+    if source_currency != target_currency:
+        exchange_rate = exchange_rates[target_currency] / exchange_rates[source_currency]
+        st.info(f"💱 Latest Exchange Rate: **1 {source_currency} = {exchange_rate:.2f} {target_currency}**")
+    else:
+        st.warning("Please select two different currencies.")
+
     # Input field for amount
     amount = st.number_input("Enter Amount:", min_value=0.0, value=0.0, step=1.0, format="%.2f")
 
