@@ -9,7 +9,7 @@ def main():
     usd_to_iqd_rate = get_exchange_rate()
 
     if usd_to_iqd_rate:
-        # Display the conversion sections for USD ↔ IQD
+        # Display the conversion section
         display_conversion_section(usd_to_iqd_rate)
     else:
         print("Unable to fetch the exchange rate. Please try again later.")
