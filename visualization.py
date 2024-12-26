@@ -42,10 +42,7 @@ def setup_ui():
             font-family: Arial, sans-serif;
             color: #fff;
             text-align: center;
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            margin-top: 20px;
         }
         </style>
         """,
@@ -87,7 +84,8 @@ def display_conversion_section(exchange_rates):
                 st.markdown('<div class="special-message">وەڵاهی دەوڵەمەندی</div>', unsafe_allow_html=True)
 
     # Dynamic clock for Erbil time
+    clock_placeholder = st.empty()  # Create a placeholder for the clock
     while True:
         erbil_time = datetime.now(pytz.timezone("Asia/Baghdad")).strftime("%H:%M:%S")
-        st.markdown(f'<div class="clock">🕒 Erbil Time: {erbil_time}</div>', unsafe_allow_html=True)
-        time.sleep(1)
+        clock_placeholder.markdown(f'<div class="clock">🕒 Erbil Time: {erbil_time}</div>', unsafe_allow_html=True)
+        time.sleep(1)  # Update the clock every second
