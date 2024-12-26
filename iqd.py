@@ -58,6 +58,8 @@ if usd_to_iqd_rate:
         if st.button("Convert to IQD"):
             iqd_result = usd_amount * usd_to_iqd_rate
             st.success(f"{usd_amount:,.2f} USD = {iqd_result:,.2f} IQD")
+            if iqd_result > 1_000_000_000:
+                st.warning("زۆر دەوڵەمەندی غەزەب")
             st.write("**سوپاس**")
 
     with col2:
