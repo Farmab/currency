@@ -13,16 +13,16 @@ def setup_ui():
             color: white;
         }
         .stButton>button {
-            background-color: green;
-            color: white; /* Text color inside the button */
+            background-color: green; /* Button color set to green */
+            color: white; /* Text color inside the button set to white */
             border-radius: 5px;
             padding: 10px;
             border: none;
             font-size: 16px;
         }
         .stButton>button:hover {
-            background-color: darkgreen;
-            color: white; /* Text color remains white on hover */
+            background-color: darkgreen; /* Hover color set to dark green */
+            color: white;
         }
         </style>
         """,
