@@ -18,25 +18,58 @@ def get_exchange_rate():
         return None
 
 # Streamlit app
-st.title("Currency Converter: USD ↔ IQD")
+st.set_page_config(page_title="Currency Converter", page_icon="💱", layout="centered")
+
+# Add custom CSS for background color
+st.markdown(
+    """
+    <style>
+    body {
+        background: linear-gradient(to bottom, #1e3c72, #2a5298);
+        color: white;
+    }
+    .stButton>button {
+        background-color: #4CAF50;
+        color: white;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.title("💱 Currency Converter: USD ↔ IQD")
+st.markdown("Use this app to easily convert between **USD** and **IQD** based on the latest exchange rate.")
 
 # Fetch the exchange rate
 usd_to_iqd_rate = get_exchange_rate()
 
 if usd_to_iqd_rate:
-    st.write(f"**Exchange Rate:** 1 USD = {usd_to_iqd_rate} IQD")
+    st.markdown(f"### 📈 Current Exchange Rate: **1 USD = {usd_to_iqd_rate} IQD**")
 
-    # Input fields for conversion
+    # Add some spacing
+    st.markdown("---")
+
+    # Input fields for conversion with improved layout
     col1, col2 = st.columns(2)
 
     with col1:
-        usd_amount = st.number_input("Enter amount in USD:", min_value=0.0, value=0.0, step=1.0)
-        if st.button("Convert USD to IQD"):
+        st.subheader("Convert USD to IQD")
+        usd_amount = st.number_input("Enter amount in USD:", min_value=0.0, value=0.0, step=1.0, format="%.2f")
+        if st.button("Convert to IQD"):
             iqd_result = usd_amount * usd_to_iqd_rate
-            st.write(f"{usd_amount} USD = {iqd_result:.2f} IQD")
+            st.success(f"{usd_amount:.2f} USD = {iqd_result:.2f} IQD")
 
     with col2:
-        iqd_amount = st.number_input("Enter amount in IQD:", min_value=0.0, value=0.0, step=1.0)
-        if st.button("Convert IQD to USD"):
+        st.subheader("Convert IQD to USD")
+        iqd_amount = st.number_input("Enter amount in IQD:", min_value=0.0, value=0.0, step=1.0, format="%.2f")
+        if st.button("Convert to USD"):
             usd_result = iqd_amount / usd_to_iqd_rate
-            st.write(f"{iqd_amount} IQD = {usd_result:.2f} USD")
+            st.success(f"{iqd_amount:.2f} IQD = {usd_result:.2f} USD")
+
+    # Footer section
+    st.markdown("---")
+    st.markdown(
+        "**Tip:** The exchange rate updates automatically based on the latest data from a reliable global API. For precise conversions, make sure your amounts are accurate.")
+
+else:
+    st.error("Unable to fetch the exchange rate. Please try again later.")
