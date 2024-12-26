@@ -25,7 +25,7 @@ st.markdown(
     """
     <style>
     body {
-        background: linear-gradient(to bottom, #1e3c72, #2a5298);
+        background-color: #00008b;
         color: white;
     }
     .stButton>button {
