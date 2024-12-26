@@ -1,10 +1,12 @@
 import streamlit as st
+from datetime import datetime
+import pytz
 
 def setup_ui():
     # Set up Streamlit page configuration
     st.set_page_config(page_title="Currency Converter", page_icon="💱", layout="centered")
 
-    # Add custom CSS for styling, including the custom font
+    # Add custom CSS for styling, including clock design
     st.markdown(
         """
         <style>
@@ -33,6 +35,16 @@ def setup_ui():
             color: gold;
             text-align: center;
             margin-top: 20px;
+        }
+        .clock {
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
         }
         </style>
         """,
@@ -72,3 +84,7 @@ def display_conversion_section(exchange_rates):
             # Display special message for large IQD values
             if target_currency == "IQD" and converted_amount > 1_000_000_000:
                 st.markdown('<div class="special-message">وەڵاهی دەوڵەمەندی</div>', unsafe_allow_html=True)
+
+    # Display Baghdad time at the bottom
+    baghdad_time = datetime.now(pytz.timezone("Asia/Baghdad")).strftime("%H:%M:%S")
+    st.markdown(f'<div class="clock">🕒 Baghdad Time: {baghdad_time}</div>', unsafe_allow_html=True)
