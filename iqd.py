@@ -58,6 +58,7 @@ if usd_to_iqd_rate:
         if st.button("Convert to IQD"):
             iqd_result = usd_amount * usd_to_iqd_rate
             st.success(f"{usd_amount:,.2f} USD = {iqd_result:,.2f} IQD")
+            st.write("**سوپاس**")
 
     with col2:
         st.subheader("Convert IQD to USD")
@@ -65,6 +66,7 @@ if usd_to_iqd_rate:
         if st.button("Convert to USD"):
             usd_result = iqd_amount / usd_to_iqd_rate
             st.success(f"{iqd_amount:,.2f} IQD = {usd_result:,.2f} USD")
+            st.write("**سوپاس**")
 
     # Footer section
     st.markdown("---")
