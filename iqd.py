@@ -31,9 +31,12 @@ if usd_to_iqd_rate:
 
     with col1:
         usd_amount = st.number_input("Enter amount in USD:", min_value=0.0, value=0.0, step=1.0)
-        if st.button("Convert to IQD"):
+        if st.button("Convert USD to IQD"):
             iqd_result = usd_amount * usd_to_iqd_rate
             st.write(f"{usd_amount} USD = {iqd_result:.2f} IQD")
 
     with col2:
-        iqd_amount = st.number_input("Enter
+        iqd_amount = st.number_input("Enter amount in IQD:", min_value=0.0, value=0.0, step=1.0)
+        if st.button("Convert IQD to USD"):
+            usd_result = iqd_amount / usd_to_iqd_rate
+            st.write(f"{iqd_amount} IQD = {usd_result:.2f} USD")
