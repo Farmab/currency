@@ -1,8 +1,6 @@
-from flask import Flask, render_template, request
+import streamlit as st
 import requests
 from bs4 import BeautifulSoup
-
-app = Flask(__name__)
 
 # Function to fetch exchange rate from Google
 def get_exchange_rate():
@@ -17,43 +15,32 @@ def get_exchange_rate():
             rate = rate_element.text
             return float(rate.replace(",", ""))
         else:
-            raise ValueError("Exchange rate element not found on the page.")
+            st.error("Exchange rate element not found on the page.")
+            return None
     except Exception as e:
-        print(f"Error fetching exchange rate: {e}")
+        st.error(f"Error fetching exchange rate: {e}")
         return None
 
-@app.route('/')
-def home():
-    return render_template('converter.html')
+# Streamlit app
+st.title("Currency Converter: USD ↔ IQD")
 
-@app.route('/convert', methods=['POST'])
-def convert():
-    usd_to_iqd_rate = get_exchange_rate()
-    if usd_to_iqd_rate is None:
-        return "Error fetching exchange rate. Please try again later."
+# Fetch the exchange rate
+usd_to_iqd_rate = get_exchange_rate()
 
-    try:
-        usd_amount = request.form.get('usd_amount')
-        iqd_amount = request.form.get('iqd_amount')
+if usd_to_iqd_rate:
+    st.write(f"**Exchange Rate:** 1 USD = {usd_to_iqd_rate} IQD")
 
-        usd_to_iqd = None
-        iqd_to_usd = None
+    # Input fields for conversion
+    col1, col2 = st.columns(2)
 
-        if usd_amount:
-            usd_to_iqd = float(usd_amount) * usd_to_iqd_rate
-        if iqd_amount:
-            iqd_to_usd = float(iqd_amount) / usd_to_iqd_rate
+    with col1:
+        usd_amount = st.number_input("Enter amount in USD:", min_value=0.0, value=0.0, step=1.0)
+        if st.button("Convert USD to IQD"):
+            iqd_result = usd_amount * usd_to_iqd_rate
+            st.write(f"{usd_amount} USD = {iqd_result:.2f} IQD")
 
-        return render_template(
-            'converter.html', 
-            usd_amount=usd_amount, 
-            iqd_amount=iqd_amount, 
-            usd_to_iqd=usd_to_iqd, 
-            iqd_to_usd=iqd_to_usd, 
-            rate=usd_to_iqd_rate
-        )
-    except Exception as e:
-        return f"Error: {e}"
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    with col2:
+        iqd_amount = st.number_input("Enter amount in IQD:", min_value=0.0, value=0.0, step=1.0)
+        if st.button("Convert IQD to USD"):
+            usd_result = iqd_amount / usd_to_iqd_rate
+            st.write(f"{iqd_amount} IQD = {usd_result:.2f} USD")
