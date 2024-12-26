@@ -24,9 +24,10 @@ def setup_ui():
             background-color: #45a049;
         }
         h1 {
-            font-size: 24px; /* Make the title smaller */
+            font-size: 18px; /* Adjusted smaller font size */
             text-align: center;
-            white-space: nowrap; /* Prevent title from wrapping to the next line */
+            white-space: nowrap; /* Prevent title from wrapping */
+            margin-bottom: 20px; /* Add spacing below the title */
         }
         </style>
         """,
