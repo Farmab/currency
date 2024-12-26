@@ -26,6 +26,7 @@ def setup_ui():
         h1 {
             font-size: 24px; /* Make the title smaller */
             text-align: center;
+            white-space: nowrap; /* Prevent title from wrapping to the next line */
         }
         </style>
         """,
