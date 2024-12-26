@@ -1,7 +1,6 @@
 import streamlit as st
 from datetime import datetime
 import pytz
-import time
 
 def setup_ui():
     # Set up Streamlit page configuration
@@ -42,13 +41,12 @@ def setup_ui():
             font-family: Arial, sans-serif;
             color: #fff;
             text-align: center;
-            margin-top: 20px;
-            padding: 20px;
+            padding: 10px;
             border: 2px solid #4CAF50;
             border-radius: 10px;
             background-color: #00264d;
             width: 300px;
-            margin: 0 auto;
+            margin: 20px auto;
         }
         </style>
         """,
@@ -91,9 +89,8 @@ def display_conversion_section(exchange_rates):
 
     # Dynamic clock for Erbil time inside a box
     clock_placeholder = st.empty()  # Create a placeholder for the clock
-    while True:
-        erbil_time = datetime.now(pytz.timezone("Asia/Baghdad")).strftime("%H:%M:%S")
-        clock_placeholder.markdown(
-            f'<div class="clock-box">🕒 Erbil Time: {erbil_time}</div>', unsafe_allow_html=True
-        )
-        time.sleep(1)  # Update the clock every second
+    erbil_time = datetime.now(pytz.timezone("Asia/Baghdad")).strftime("%H:%M:%S")
+    clock_placeholder.markdown(
+        f'<div class="clock-box">🕒 Erbil Time: {erbil_time}</div>', unsafe_allow_html=True
+    )
+    st.experimental_rerun()  # Refresh the app to update the time
