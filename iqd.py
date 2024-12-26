@@ -1,21 +1,17 @@
 import streamlit as st
 import requests
-from bs4 import BeautifulSoup
 
-# Function to fetch exchange rate from Google
+# Function to fetch exchange rate from a global API
 def get_exchange_rate():
-    url = "https://www.google.com/search?q=usd+to+iqd"
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"}
-    response = requests.get(url, headers=headers)
-    soup = BeautifulSoup(response.text, 'html.parser')
-
+    url = "https://api.exchangerate-api.com/v4/latest/USD"  # Global exchange rate API
     try:
-        rate_element = soup.find("span", class_="DFlfde SwHCTb")
-        if rate_element:
-            rate = rate_element.text
-            return float(rate.replace(",", ""))
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+        if "IQD" in data["rates"]:
+            return data["rates"]["IQD"]
         else:
-            st.error("Exchange rate element not found on the page.")
+            st.error("IQD rate not found in API response.")
             return None
     except Exception as e:
         st.error(f"Error fetching exchange rate: {e}")
