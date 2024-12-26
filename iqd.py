@@ -44,7 +44,7 @@ st.markdown("This app helps you easily convert between **USD** and **IQD** based
 usd_to_iqd_rate = get_exchange_rate()
 
 if usd_to_iqd_rate:
-    st.markdown(f"### 📈 Current Exchange Rate: **1 USD = {usd_to_iqd_rate} IQD**")
+    st.markdown(f"### 📈 Current Exchange Rate: **1 USD = {usd_to_iqd_rate:,.2f} IQD**")
 
     # Add some spacing
     st.markdown("---")
@@ -57,14 +57,14 @@ if usd_to_iqd_rate:
         usd_amount = st.number_input("Enter amount in USD:", min_value=0.0, value=0.0, step=1.0, format="%.2f")
         if st.button("Convert to IQD"):
             iqd_result = usd_amount * usd_to_iqd_rate
-            st.success(f"{usd_amount:.2f} USD = {iqd_result:.2f} IQD")
+            st.success(f"{usd_amount:,.2f} USD = {iqd_result:,.2f} IQD")
 
     with col2:
         st.subheader("Convert IQD to USD")
         iqd_amount = st.number_input("Enter amount in IQD:", min_value=0.0, value=0.0, step=1.0, format="%.2f")
         if st.button("Convert to USD"):
             usd_result = iqd_amount / usd_to_iqd_rate
-            st.success(f"{iqd_amount:.2f} IQD = {usd_result:.2f} USD")
+            st.success(f"{iqd_amount:,.2f} IQD = {usd_result:,.2f} USD")
 
     # Footer section
     st.markdown("---")
