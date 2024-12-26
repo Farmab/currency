@@ -1,10 +1,12 @@
 import streamlit as st
+from datetime import datetime
+import pytz
 
 def setup_ui():
     # Set up Streamlit page configuration
     st.set_page_config(page_title="Currency Converter", page_icon="💱", layout="centered")
 
-    # Add custom CSS for styling, including the custom font
+    # Add custom CSS for styling, including date box design
     st.markdown(
         """
         <style>
@@ -33,6 +35,18 @@ def setup_ui():
             color: gold;
             text-align: center;
             margin-top: 20px;
+        }
+        .date-box {
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            background-color: #00264d;
+            width: 300px;
+            margin: 20px auto;
         }
         </style>
         """,
@@ -72,3 +86,7 @@ def display_conversion_section(exchange_rates):
             # Display special message for large IQD values
             if target_currency == "IQD" and converted_amount > 1_000_000_000:
                 st.markdown('<div class="special-message">وەڵاهی دەوڵەمەندی</div>', unsafe_allow_html=True)
+
+    # Display today's date in a styled box
+    today_date = datetime.now(pytz.timezone("Asia/Baghdad")).strftime("%A, %d %B %Y")
+    st.markdown(f'<div class="date-box">📅 Today\'s Date: {today_date}</div>', unsafe_allow_html=True)
