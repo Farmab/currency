@@ -14,7 +14,7 @@ def setup_ui():
         }
         .stButton>button {
             background-color: green;
-            color: white;
+            color: white; /* Text color inside the button */
             border-radius: 5px;
             padding: 10px;
             border: none;
@@ -22,6 +22,7 @@ def setup_ui():
         }
         .stButton>button:hover {
             background-color: darkgreen;
+            color: white; /* Text color remains white on hover */
         }
         </style>
         """,
