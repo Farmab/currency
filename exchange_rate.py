@@ -1,20 +1,21 @@
 import requests
+from bs4 import BeautifulSoup
 
-def get_exchange_rates():
-    url = "https://api.exchangerate-api.com/v4/latest/USD"  # Replace with a reliable API if needed
+def get_bazar_exchange_rates():
+    url = "https://example-bazar-rates.com/iraq"  # Replace with the actual website URL
     try:
         response = requests.get(url)
         response.raise_for_status()
-        data = response.json()
+        soup = BeautifulSoup(response.text, "html.parser")
 
-        # Extract rates for the required currencies
+        # Example scraping logic (adjust based on the website structure)
         rates = {
             "USD": 1.0,  # Base currency
-            "IQD": data["rates"].get("IQD", 0),  # Fetch IQD rate
-            "EUR": data["rates"].get("EUR", 0),  # Fetch EUR rate
-            "GBP": data["rates"].get("GBP", 0),  # Fetch GBP rate
+            "IQD": float(soup.find("span", id="usd-to-iqd").text.strip().replace(",", "")),  # Bazar rate
+            "EUR": float(soup.find("span", id="usd-to-eur").text.strip().replace(",", "")),  # Optional additional rates
+            "GBP": float(soup.find("span", id="usd-to-gbp").text.strip().replace(",", "")),  # Optional additional rates
         }
         return rates
     except Exception as e:
-        print(f"Error fetching exchange rates: {e}")
+        print(f"Error fetching bazar exchange rates: {e}")
         return None
