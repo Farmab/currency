@@ -75,5 +75,9 @@ if usd_to_iqd_rate:
     st.markdown(
         "**Tip:** Exchange rates are updated automatically based on the latest data from a reliable API. For accurate conversions, ensure your input values are correct.")
 
+    # Attribution
+    st.markdown("---")
+    st.write("**This app made by Farman GPT**")
+
 else:
     st.error("Unable to fetch the exchange rate. Please try again later.")
