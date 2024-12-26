@@ -13,8 +13,15 @@ def setup_ui():
             color: white;
         }
         .stButton>button {
-            background-color: #4CAF50;
+            background-color: red;
             color: white;
+            border-radius: 5px;
+            padding: 10px;
+            border: none;
+            font-size: 16px;
+        }
+        .stButton>button:hover {
+            background-color: darkred;
         }
         </style>
         """,
