@@ -1,17 +1,20 @@
 import requests
-import streamlit as st
 
-def get_exchange_rate():
-    url = "https://api.exchangerate-api.com/v4/latest/USD"  # Global exchange rate API
+def get_exchange_rates():
+    url = "https://api.exchangerate-api.com/v4/latest/USD"  # Replace with a reliable API if needed
     try:
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
-        if "IQD" in data["rates"]:
-            return data["rates"]["IQD"]
-        else:
-            st.error("IQD rate not found in the API response.")
-            return None
+
+        # Extract rates for the required currencies
+        rates = {
+            "USD": 1.0,  # Base currency
+            "IQD": data["rates"].get("IQD", 0),  # Fetch IQD rate
+            "EUR": data["rates"].get("EUR", 0),  # Fetch EUR rate
+            "GBP": data["rates"].get("GBP", 0),  # Fetch GBP rate
+        }
+        return rates
     except Exception as e:
-        st.error(f"An error occurred while fetching the exchange rate: {e}")
+        print(f"Error fetching exchange rates: {e}")
         return None
