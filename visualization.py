@@ -85,6 +85,7 @@ def display_conversion_section(exchange_rates):
             if target_currency == "IQD" and converted_amount > 1_000_000_000:
                 st.markdown('<div class="special-message">وەڵاهی دەوڵەمەندی</div>', unsafe_allow_html=True)
 
-    # Display Baghdad time at the bottom
-    baghdad_time = datetime.now(pytz.timezone("Asia/Baghdad")).strftime("%H:%M:%S")
-    st.markdown(f'<div class="clock">🕒 Baghdad Time: {baghdad_time}</div>', unsafe_allow_html=True)
+    # Dynamic clock for Erbil time
+    erbil_time = datetime.now(pytz.timezone("Asia/Baghdad")).strftime("%H:%M:%S")
+    st.markdown(f'<div class="clock">🕒 Erbil Time: {erbil_time}</div>', unsafe_allow_html=True)
+    st.experimental_rerun()
