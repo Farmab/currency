@@ -23,13 +23,17 @@ def setup_ui():
         .stButton>button:hover {
             background-color: #45a049;
         }
+        h1 {
+            font-size: 24px; /* Make the title smaller */
+            text-align: center;
+        }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
     # Display title and intro text
-    st.title("💱 Currency Converter: IQD ↔ USD ↔ EUR ↔ GBP")
+    st.markdown("<h1>💱 Currency Converter: USD ↔ IQD ↔ EUR ↔ GBP</h1>", unsafe_allow_html=True)
     st.markdown("This app helps you convert between **Iraqi Dinar (IQD)**, **US Dollar (USD)**, **Euro (EUR)**, and **British Pound (GBP)** based on the latest exchange rates.")
 
 def display_conversion_section(exchange_rates):
