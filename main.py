@@ -1,18 +1,18 @@
 from visualization import setup_ui, display_conversion_section
-from exchange_rate import get_exchange_rate
+from exchange_rate import get_exchange_rates
 
 def main():
     # Setup the UI (page title, layout, and styles)
     setup_ui()
 
-    # Fetch the exchange rate
-    usd_to_iqd_rate = get_exchange_rate()
+    # Fetch the exchange rates
+    exchange_rates = get_exchange_rates()
 
-    if usd_to_iqd_rate:
+    if exchange_rates:
         # Display the conversion section
-        display_conversion_section(usd_to_iqd_rate)
+        display_conversion_section(exchange_rates)
     else:
-        print("Unable to fetch the exchange rate. Please try again later.")
+        st.error("Unable to fetch the exchange rates. Please try again later.")
 
 if __name__ == "__main__":
     main()
