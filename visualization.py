@@ -13,7 +13,7 @@ def setup_ui():
             color: white;
         }
         .stButton>button {
-            background-color: red;
+            background-color: green;
             color: white;
             border-radius: 5px;
             padding: 10px;
@@ -21,7 +21,7 @@ def setup_ui():
             font-size: 16px;
         }
         .stButton>button:hover {
-            background-color: darkred;
+            background-color: darkgreen;
         }
         </style>
         """,
