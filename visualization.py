@@ -29,35 +29,24 @@ def setup_ui():
     )
 
     # Display title and intro text
-    st.title("💱 Currency Converter: USD ↔ IQD")
-    st.markdown("This app helps you easily convert between **USD** and **IQD** based on the latest exchange rates.")
+    st.title("💱 Currency Converter: IQD ↔ USD ↔ EUR ↔ GBP")
+    st.markdown("This app helps you convert between **Iraqi Dinar (IQD)**, **US Dollar (USD)**, **Euro (EUR)**, and **British Pound (GBP)** based on the latest exchange rates.")
 
-def display_conversion_section(usd_to_iqd_rate):
+def display_conversion_section(exchange_rates):
     st.markdown("---")
 
-    # Dropdown for currency selection
-    currency = st.selectbox("Select Currency Type:", ["Dollar (USD)", "Dinar (IQD)"])
+    # Dropdowns for currency selection
+    source_currency = st.selectbox("From:", list(exchange_rates.keys()))
+    target_currency = st.selectbox("To:", list(exchange_rates.keys()))
 
     # Input field for amount
     amount = st.number_input("Enter Amount:", min_value=0.0, value=0.0, step=1.0, format="%.2f")
 
     # Single conversion button
     if st.button("Convert"):
-        if currency == "Dollar (USD)":
-            # Convert USD to IQD
-            converted_amount = amount * usd_to_iqd_rate
-            st.success(f"{amount:,.2f} USD = {converted_amount:,.2f} IQD")
+        if source_currency == target_currency:
+            st.warning("Please select two different currencies.")
         else:
-            # Convert IQD to USD
-            converted_amount = amount / usd_to_iqd_rate
-            st.success(f"{amount:,.2f} IQD = {converted_amount:,.2f} USD")
-
-        # Special message for large conversions
-        if converted_amount > 1_000_000_000 and currency == "Dollar (USD)":
-            st.warning("زۆر دەوڵەمەندی غەزەب")
-        st.write("**سوپاس**")
-
-    st.markdown("---")
-    st.markdown("**Tip:** Exchange rates are updated automatically based on the latest data from a reliable API.")
-    st.markdown("---")
-    st.write("**This app made by Farman GPT**")
+            # Calculate the conversion
+            converted_amount = amount * exchange_rates[target_currency] / exchange_rates[source_currency]
+            st.success(f"{amount:,.2f} {source_currency} = {converted_amount:,.2f} {target_currency}")
