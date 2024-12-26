@@ -4,10 +4,14 @@ def setup_ui():
     # Set up Streamlit page configuration
     st.set_page_config(page_title="Currency Converter", page_icon="💱", layout="centered")
 
-    # Add custom CSS for styling
+    # Add custom CSS for styling, including the custom font
     st.markdown(
         """
         <style>
+        @font-face {
+            font-family: 'Rabar_021';
+            src: url('https://www.kurdfonts.com/storage/fonts/Rabar021/Rabar_021.woff') format('woff');
+        }
         body {
             background-color: #00008b;
             color: white;
@@ -23,11 +27,12 @@ def setup_ui():
         .stButton>button:hover {
             background-color: #45a049;
         }
-        h1 {
-            font-size: 18px; /* Adjusted smaller font size */
+        .special-message {
+            font-family: 'Rabar_021', sans-serif;
+            font-size: 24px;
+            color: gold;
             text-align: center;
-            white-space: nowrap; /* Prevent title from wrapping */
-            margin-bottom: 20px; /* Add spacing below the title */
+            margin-top: 20px;
         }
         </style>
         """,
@@ -63,3 +68,7 @@ def display_conversion_section(exchange_rates):
             # Calculate the conversion
             converted_amount = amount * exchange_rates[target_currency] / exchange_rates[source_currency]
             st.success(f"{amount:,.2f} {source_currency} = {converted_amount:,.2f} {target_currency}")
+
+            # Display special message for large IQD values
+            if target_currency == "IQD" and converted_amount > 1_000_000_000:
+                st.markdown('<div class="special-message">وەڵاهی دەوڵەمەندی</div>', unsafe_allow_html=True)
