@@ -7,7 +7,7 @@ def setup_ui():
     # Set up Streamlit page configuration
     st.set_page_config(page_title="Currency Converter", page_icon="💱", layout="centered")
 
-    # Add custom CSS for styling, including clock design
+    # Add custom CSS for styling, including clock box design
     st.markdown(
         """
         <style>
@@ -37,12 +37,18 @@ def setup_ui():
             text-align: center;
             margin-top: 20px;
         }
-        .clock {
+        .clock-box {
             font-size: 24px;
             font-family: Arial, sans-serif;
             color: #fff;
             text-align: center;
             margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            background-color: #00264d;
+            width: 300px;
+            margin: 0 auto;
         }
         </style>
         """,
@@ -83,9 +89,11 @@ def display_conversion_section(exchange_rates):
             if target_currency == "IQD" and converted_amount > 1_000_000_000:
                 st.markdown('<div class="special-message">وەڵاهی دەوڵەمەندی</div>', unsafe_allow_html=True)
 
-    # Dynamic clock for Erbil time
+    # Dynamic clock for Erbil time inside a box
     clock_placeholder = st.empty()  # Create a placeholder for the clock
     while True:
         erbil_time = datetime.now(pytz.timezone("Asia/Baghdad")).strftime("%H:%M:%S")
-        clock_placeholder.markdown(f'<div class="clock">🕒 Erbil Time: {erbil_time}</div>', unsafe_allow_html=True)
+        clock_placeholder.markdown(
+            f'<div class="clock-box">🕒 Erbil Time: {erbil_time}</div>', unsafe_allow_html=True
+        )
         time.sleep(1)  # Update the clock every second
